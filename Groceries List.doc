@@ -1,0 +1,36 @@
+Monday
+  a:
+  ->aa
+  ->ab
+  ->ac
+
+Tuesday
+  b:
+  ->ba
+  ->bb
+
+Wednesday
+  c:
+  ->ca
+  ->cb
+  ->cc
+  ->cd
+
+Thursday
+  d:
+  ->da
+  ->db
+
+Friday
+  e:
+  ->ea
+
+Saturday
+  f:
+  ->fa
+
+Sunday
+  g:
+  ->ga
+  ->gb
+
