@@ -55,10 +55,11 @@ class main_window(Tk):
             showwarning("Error","Please enter a number")
             self.GUI_objectif.delete(0,'end')
         else:
+            self.list = optimisation_lineaire(recipes,self.objectif,basal_metabolism)
             self.show_list()
 
     
-    def show_list(self):
+    """def show_list(self):
         self.button_export = Button(self.Frame_3, text = "Export", command = self.export)
         self.button_export.grid()
         for i in range(len(self.list)):
@@ -68,10 +69,29 @@ class main_window(Tk):
             for j in range(len(self.list[i])-1):
                 Label(self.Frame_2,text = "-",width = 10).grid(row = j+4,column = 3*i+1)
                 Label(self.Frame_2,text = self.list[i][j+1],width = 10).grid(row = j+4,column = 3*i+2)
+    """
+
+    def show_list(self):
+        self.button_export = Button(self.Frame_3, text = "Export", command = self.export)
+        self.button_export.grid()
+        max_len = max_lenght(self.list)+1
+        for i in range(len(self.list)):
+            Label(self.Frame_2,text = List_days[i],width = 10).grid(row = 2,column = 4*i+1)
+            for j in range (len(self.list[i])):
+                Label(self.Frame_2,text = List_meals[j],width = 10).grid(row = 3+j*max_len+1,column = 4*i+1)
+                
+                Recipe = self.list[i,j]
+                Label(self.Frame_2,text = Recipe.Name,width = 10).grid(row = 3+j*max_len+1,column = 4*i+2)
+                for k in range(Recipe.NumberIngredients):
+                    Label(self.Frame_2,text = " - ",width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+2)
+                    Label(self.Frame_2,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+3)
+
+
 
     def clear(self):
         pass
 
+    """
     def export(self):
         f = open(self.document,"w")
         for i in range(len(self.list)):
@@ -79,5 +99,19 @@ class main_window(Tk):
             f.write("  "+self.list[i][0]+":\n")
             for j in range(len(self.list[i])-1):
                 f.write("  ->"+self.list[i][j+1]+"\n")
+            f.write("\n")
+        f.close()
+    """
+
+    def export(self):
+        f = open(self.document,"w")
+        for i in range(len(self.list)):
+            f.write(List_days[i]+"\n")
+            for j in range (len(self.list[i])):
+                f.write(List_meals[j])
+                Recipe = self.list[i,j]
+                f.write(" : " + Recipe.Name + "\n")
+                for k in range(Recipe.NumberIngredients):
+                    f.write(" ->" + Recipe.Ingredients[k].Name + "\n")
             f.write("\n")
         f.close()

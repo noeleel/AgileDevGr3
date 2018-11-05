@@ -1,13 +1,26 @@
 from Groceries import *
 from Recipes import *
 
+
+List_days  = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+List_meals = ["Breakfast","Lunch","Dinner"]
+
+
 def str_to_float(string):
     try:
         return float(string)
     except:
         return -1
 
-List_days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+def max_lenght(l):
+    m = 0
+    for i in range (len(l)):
+        for j in range(len(l[i])):
+            if l[i,j].NumberIngredients>m:
+                m = l[i,j].NumberIngredients
+    return m
+
+
 
 def read_recipes(file):
     f_ingredients = open("ingredients.txt", "r")
