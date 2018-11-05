@@ -1,7 +1,8 @@
                     
 class Recipe():
-    def __init__(self, NumberIngredients, calories, nutritional_values, Dictionary):
+    def __init__(self, name, NumberIngredients, calories, nutritional_values, Dictionary):
         super().__init__()
+        self.name = name
         self.NumberIngredients = NumberIngredients
         self.calories = calories
         self.nutritional_values = nutritional_values

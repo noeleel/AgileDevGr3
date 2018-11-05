@@ -1,5 +1,6 @@
 from Groceries import *
 from Recipes import *
+import pandas as pd
 
 
 List_days  = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
@@ -22,16 +23,46 @@ def max_lenght(l):
 
 
 
-def read_recipes(file):
-    f_ingredients = open("ingredients.txt", "r")
+def recipes_parser(lines):
+    Recipes = []
+    Recipe = []
+    for x in lines:
+        if not x.isspace():
+            if '#' in x:
+                if len(Recipe) > 0 :
+                    Recipes += [Recipe]
+                    Recipe = []
+                name = x.split('###')[1]
+                Recipe += [name]
+            else :
+                Recipe += [x]
+    return Recipes
+
+def read_recipes():
+    """
+    Ingredients.csv : a csv file containing five columns : Aliment	QTT	Prot	Glu	Lip	cal
+    recettes.txt : a txt file containing the name of the recipes between three ### and
+    below each recipes, the ingredients with their factors
+    Later, it has to be replace by the SQL database
+    """
+    f_ingredients = "Ingredients.csv"
     f_recipes = open("recettes.txt","r")
     lines_recipes = f_recipes.readlines()
-    lines_ingredients = f_ingredients.readlines()
-    for x in lines_recipes:
-        for y in lines_ingredients:
-            a = 0
-        
-    return 1
+    lines_ingredients = pd.read_csv(f_ingredients)
+    ingredients_size = len(lines_ingredients)
+    Ingredients = []
+    for i in range(ingredients_size):
+        name = lines_ingredients['Aliment'][i]
+        calories = lines_ingredients['cal'][i]
+        weight = lines_ingredients['QTT'][i]
+        nutritional_values = [{'Protein' : lines_ingredients['Prot'][i]},
+                              {'Carbohydrate' : lines_ingredients['Glu'][i]},
+                                {'Fat' : lines_ingredients['Lip'][i]}] 
+        # In the nutriotinal_values List, everything related to vitamins will be added here
+        Ingredient = Grocery(name, calories, weight, nutritional_values)
+        Ingredients += [Ingredient]
+    Recipes = recipes_parser(lines_recipes)
+    return Recipes
     
 def optimisation_lineaire(recipes, calories_per_day, basal_metabolism):
     """
@@ -42,11 +73,12 @@ def optimisation_lineaire(recipes, calories_per_day, basal_metabolism):
     """
     sum_calories = 0
     Calories_for_day = []
+    calories_per_recipe = 800
     i = 0
     while sum_calories < calories_per_day:
         for i in  range(len(recipes)):
-            if sum_calories + recipes[i].calories < calories_per_day:
-                sum_calories += recipes[i].calories
+            if sum_calories + calories_per_recipe < calories_per_day:
+                sum_calories += calories_per_recipe
                 Calories_for_day = Calories_for_day + [recipes[i]]
     List = [Calories_for_day,
             Calories_for_day,
