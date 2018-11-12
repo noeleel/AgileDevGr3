@@ -2,13 +2,18 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter.messagebox import *
 
+
 from Misc import *
 
 
 class main_window(Tk):
     def __init__(self):
         super().__init__()
+        self.current_weight = 0
+        self.fat_percent = 0
         self.objectif = 0
+        self.activity_factor = 0
+        
         self.list = []
         self.document = "Groceries List.doc"
         self.Frame_1 = Frame(self, borderwidth=2, relief=GROOVE)
@@ -20,41 +25,62 @@ class main_window(Tk):
         self.Frame_2.pack(side=TOP)
         self.Frame_3.pack(side = TOP)
 
-        """self.menubar = Menu(self)
-        self.filemenu = (self.menubar)
-        self.filemenu.add_command(label = "Export",command = self.export)
-        self.filemenu.add_separator()
-        self.filemenu.add_command(label = "Clear", command = self.clear)
-        self.filemenu.add_command(label = "Quit",  command = self.quit)
-        self.menubar.add_cascade(label = "File", menu = self.filemenu)"""
+        self.label_weight = Label(self.Frame_1,text = "Weight(kg): ")
+        self.input_weight = Entry(self.Frame_1)
 
-        self.label = Label(self.Frame_1,text = "Objectif: ")
-        self.GUI_objectif = Entry(self.Frame_1)
+        self.label_fat = Label(self.Frame_1,text = "Fat percent: ")
+        self.input_fat = Entry(self.Frame_1)
+
+
+        vals = ['1.25', '1.5', '1.75','2.1']
+        etiqs = ['daily activities and 30 min walk / day ', 
+                 '~60 min of small activities',
+                 '>60 min of small activities, or 30-60 min intensive activities',
+                 '>60min of intensive activities']
+        self.varGr = StringVar()
+        self.varGr.set(vals[1])
+        for i in range(len(etiqs)):
+            b = Radiobutton(self.Frame_2, variable=self.varGr, text=etiqs[i], value=vals[i])
+            b.pack(side='top', expand=1, anchor = 'w')
+
+
+        self.label_objectif = Label(self.Frame_1,text = "Objectif(kg): ")
+        self.input_objectif = Entry(self.Frame_1)
+
+        self.send_button = Button(self.Frame_1, text = "Send value",command = self.send)
         self.exit = Button(self.Frame_1, text="Quit", command=self.quit)
 
-        self.bind('<Return>',self.get_objectif)
+        self.bind('<Return>',self.return_key)
 
-        self.label.grid(row = 1,column=3)
-        self.GUI_objectif.grid(row = 1,column = 5)
+        self.label_weight.grid(row = 1,column=3)
+        self.input_weight.grid(row = 1,column = 5)
+
+        self.label_fat.grid(row = 2,column=3)
+        self.input_fat.grid(row = 2,column = 5)
+
+        self.label_objectif.grid(row = 3,column=3)
+        self.input_objectif.grid(row = 3,column = 5)
+
+        self.send_button.grid(row = 2,column = 7)
         self.exit.grid(row = 1,column = 7)
 
+    def return_key(self,Event):
+        self.get_objectif()
 
+    def send(self):
+        self.get_objectif()
 
-        #self.label.pack()
-        #self.GUI_objectif.pack()
-        #self.exit.pack()
+    def get_objectif(self):
+        self.current_weight = str_to_float(self.input_weight.get())
+        self.activity_factor = str_to_float(self.varGr.get())
+        self.fat_percent = str_to_float(self.input_fat.get())
+        self.objectif = str_to_float(self.input_objectif.get())
 
-        #self.config(menu = self.menubar)
-        
-
-
-    
-    def get_objectif(self,Event):
-        self.objectif = str_to_float(self.GUI_objectif.get())
-        if self.objectif ==-1:
-            showwarning("Error","Please enter a number")
-            self.GUI_objectif.delete(0,'end')
+        if (self.activity_factor * self.current_weight * self.objectif * self.fat_percent == 0):
+            showwarning("Error","Please fill all boxes with number")
         else:
+            pass
+            print(self.activity_factor,self.current_weight,self.objectif,self.fat_percent)
             self.list = optimisation_lineaire(recipes,self.objectif,basal_metabolism)
             self.show_list()
 

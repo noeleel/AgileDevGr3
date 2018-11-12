@@ -3,15 +3,16 @@ from Recipes import *
 import pandas as pd
 
 
-List_days  = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-List_meals = ["Breakfast","Lunch","Dinner"]
+List_days      =  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+List_meals     =  ["Breakfast","Lunch","Dinner"]
+
 
 
 def str_to_float(string):
     try:
         return float(string)
     except:
-        return -1
+        return 0
 
 def max_lenght(l):
     m = 0
