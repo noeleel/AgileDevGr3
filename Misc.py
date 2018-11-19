@@ -6,6 +6,12 @@ import pandas as pd
 List_days      =  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 List_meals     =  ["Breakfast","Lunch","Dinner"]
 
+vals = ['1.25', '1.5', '1.75','2.1']
+etiqs = ['daily activities and 30 min walk / day ', 
+            '~60 min of small activities',
+            '>60 min of small activities, or 30-60 min intensive activities',
+            '>60min of intensive activities']
+
 
 
 def str_to_float(string):
