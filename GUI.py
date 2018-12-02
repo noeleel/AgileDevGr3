@@ -79,9 +79,13 @@ class main_window(Tk):
         if (self.activity_factor * self.current_weight * self.objectif * self.fat_percent == 0):
             showwarning("Error","Please fill all boxes with number")
         else:
+<<<<<<< 6a19e0c0b81e4b0eb84399e4796d49c59566e9e1
             pass
             print(self.activity_factor,self.current_weight,self.objectif,self.fat_percent)
             self.list = optimisation_lineaire(recipes,self.objectif,basal_metabolism)
+=======
+            self.list = optimisation_lineaire(read_recipes(),self.objectif,1500)
+>>>>>>> "Correct bug"
             self.show_list()
 
     

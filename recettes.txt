@@ -4,77 +4,77 @@ Recepies for 3/4 people
 ### Tomato pie ###
 
 250g flour
-1/10 l oil
-1/10 l water
-~100g ham
-~1 cs mustard
-~100g grated cheese
-~6 tomatoes
+1/10l oil
+1/10l water
+100g ham
+1cs mustard
+100g grated_cheese
+6 tomatoes
 
 
 ### quiche ###
 
 250g flour
-1/10 l oil
-1/10 l water
-~100g ham
-~250g paris mushrooms
+1/10l oil
+1/10l water
+100g ham
+250g paris_mushrooms
 2 eggs
-20 cl fresh cream
+20cl fresh_cream
 
 
 ### bolognese ###
 
 1 onion
 3 tomatoes
-500g minced beef
+500g minced_beef
 1/2 pepper
 
 
 ### carbonara ###
 
 1 onion
-20cl fresh cream
-~100g ham
-~250g mushrooms
+20cl fresh_cream
+100g ham
+250g mushrooms
 
 
 ### pasta gratin ###
 
 500g pasta
-~500g cheese
-~100g ham
+500g cheese
+100g ham
 
 ### onion soup ###
 
 4 onion
 50g butter
-1 cs oil
+1cs oil
 1cs flour
 1l water
 4 slice bread
-~100g cheese
+100g cheese
 
 ### tartiflette ###
 
 500g potatoes
-200g bacon (lardons)
+200g bacon
 1 onion
 1 reblochon
 
 
 ### meringue ###
 
-20 cl white egg
-110 g icing sugar
-110 g sugar
+20cl white_egg
+110g icing_sugar
+110g sugar
 
 
 ### chili con carne ###
 
-1 can red beans
+1 can_red_beans
 1 onion
-500g minced beef
+500g minced_beef
 4 tomatoes
 1 pepper
 
@@ -82,47 +82,48 @@ Recepies for 3/4 people
 ### chicon gratin ###
 
 5 endives
-bechamel (= 50 g flour + 50 g butter + 60 cl milch)
-~100g ham
+1u bechamel
+100g ham
 500g potatoes
-~100g cheese
-1 cc sugar
+100g cheese
+1cc sugar
 
 
 ### cauliflower gratin ###
 
 500g cauliflower
 500g potatoes
-bechamel
-~100g cheese
+1u bechamel
+100g cheese
 
 
 ### yoghurt cake ###
 
 1 yoghurt
-3 can flour
-2 can sugar
-1/2 can oil
-1/2 bag baking powder
+3 can_flour
+2 can_sugar
+1/2 can_oil
+1/2 bag_baking_powder
 2 eggs
 
 
 ### zucchini/tomato stuffed ###
 
-4 zucchini/6 tomatoes
-400g sausages flesh
+4 zucchini
+6 tomatoes
+400g sausages_flesh
 250g rice
 1 onion
-1 slice bread
-10/20cl milch
+1 slice_bread
+20cl milch
 1 egg
-1 cs olive oil
+1cs olive_oil
 
 
 ### chantilly cream ###
 
-25cl fresh cream
-25g ice sugar
+25cl fresh_cream
+25g ice_sugar
 
 
 ### leek fondue ###
@@ -130,9 +131,112 @@ bechamel
 600g leek
 30g butter
 1 cs mustard
-10cl fresh cream
+10cl fresh_cream
 1/2 onion
 
+
+### healthy bolognese ###
+150g ground_beef
+1u Hot_sauce
+100g Salad
+50g red_pepper
+50 g yellow_pepper
+1/2 red_onion
+1 avocado
+50g cherry_tomatoes
+
+### healthy Omelet ###
+250g egg_white
+200g chicken
+20g pesto
+1u basil
+50g cherry_tomatoes
+20g olive_oil
+
+### curry beef ###
+300g beef_cheek
+50g onion
+2 carrot
+100g rice
+1u curry_and_ginger
+100ml crushed_tomatoes
+20g olive_oil
+1u pepper
+100ml coconut_milk
+
+### Duck paste ###
+1.9kg duck_leg
+400g duck_aiguillette
+28g salt
+8g pepper
+1u provence_grass
+1u cognac
+
+### roasted lamb ###
+1.5kg Lamb_shoulder
+400g onion
+100g yellow_pepper
+100g red_pepper
+100g orange_pepper
+6 carrot
+30g garlic
+1u .pepper
+
+### cod brandade ###
+700g bream
+700g potatoes
+50g salt
+50g garlic
+125mL olive_oil
+
+### moussaka ###
+800g crushed_beef
+800g crushed_lamb
+800g potatoes
+200g onion
+50g garlic
+5g cinnamon
+5g clove
+200g cheese
+800g eggplant
+
+### lamb couscous ###
+600g lamb
+300g onion
+50g garlic
+1 dill
+8 carrot
+6 white_turnip
+10g ginger
+30g coriander
+150g chickpea
+600g semolina
+30g turmeric
+30g cumin
+30g ras el-hanout
+100ml olive_oil
+10g salt
+10g pepper
+500ml crushed_tomatoes
+
+### bourguignon beef ###
+800g lamb
+400g onion
+50g garlic
+1L red_wine
+8 carrot
+200g bacon
+200g paris_mushroom
+20g provence_grass
+10g salt
+10g pepper
+
+### gratin dauphinois ###
+2kg potatoes
+50g garlic
+350ml milk
+350ml liquid_cream
+500g cheese
 
 
 

@@ -1,5 +1,6 @@
 from Groceries import *
 from Recipes import *
+import numpy as np
 import pandas as pd
 
 
@@ -29,48 +30,84 @@ def max_lenght(l):
     return m
 
 
-
-def recipes_parser(lines):
+def parse_recipes():
+    """
+    recettes.txt : a txt file containing the name of the recipes between three ### and
+    below each recipes, the ingredients with their factors
+    Later, it has to be replace by the SQL database
+    """
+    f_recipes = open("recettes.txt","r")
+    lines_recipes = f_recipes.readlines()    
     Recipes = []
     Recipe = []
-    for x in lines:
+    for x in lines_recipes:
         if not x.isspace():
             if '#' in x:
                 if len(Recipe) > 0 :
                     Recipes += [Recipe]
                     Recipe = []
                 name = x.split('###')[1]
-                Recipe += [name]
+                Recipe += [name.strip()]
             else :
-                Recipe += [x]
+                Recipe += [x.lower().strip()]
+    Recipes.pop(0)
     return Recipes
 
-def read_recipes():
+def read_ingredients():
     """
     Ingredients.csv : a csv file containing five columns : Aliment	QTT	Prot	Glu	Lip	cal
-    recettes.txt : a txt file containing the name of the recipes between three ### and
-    below each recipes, the ingredients with their factors
-    Later, it has to be replace by the SQL database
     """
     f_ingredients = "Ingredients.csv"
-    f_recipes = open("recettes.txt","r")
-    lines_recipes = f_recipes.readlines()
     lines_ingredients = pd.read_csv(f_ingredients)
     ingredients_size = len(lines_ingredients)
     Ingredients = []
     for i in range(ingredients_size):
-        name = lines_ingredients['Aliment'][i]
-        calories = lines_ingredients['cal'][i]
+        name = lines_ingredients['Aliment'][i].lower()
+        calories = float(lines_ingredients['cal'][i])
         weight = lines_ingredients['QTT'][i]
-        nutritional_values = [{'Protein' : lines_ingredients['Prot'][i]},
-                              {'Carbohydrate' : lines_ingredients['Glu'][i]},
-                                {'Fat' : lines_ingredients['Lip'][i]}] 
+        nutritional_values = {'Protein' : float(lines_ingredients['Prot'][i]),
+                              'Carbohydrate' : float(lines_ingredients['Glu'][i]),
+                                'Fat' : float(lines_ingredients['Lip'][i])}
         # In the nutriotinal_values List, everything related to vitamins will be added here
         Ingredient = Grocery(name, calories, weight, nutritional_values)
         Ingredients += [Ingredient]
-    Recipes = recipes_parser(lines_recipes)
+    return Ingredients
+
+def read_recipes():
+    Recipes_parsed = parse_recipes()
+    Recipes = []
+    Ingredients = read_ingredients()
+    for x in Recipes_parsed:
+        Len_recipe = len(x)
+        name = x[0].strip()
+        NumberIngredients = Len_recipe - 1
+        calories = 0.0
+        nutritional_values = {'Protein' : 0.0,
+                              'Carbohydrate' : 0.0,
+                                'Fat' : 0.0}
+        List = []
+        for i in range(1,Len_recipe):
+            for y in Ingredients:
+                if x[i].split(' ')[1].strip().lower() == y.Name.strip().lower():
+                    calories += float(y.calories)
+                    nutritional_values['Protein'] +=  float(y.nutritional_values['Protein'])
+                    nutritional_values['Carbohydrate'] +=  float(y.nutritional_values['Carbohydrate'])
+                    nutritional_values['Fat'] +=  float(y.nutritional_values['Fat'])
+                    if len(x[i].split(' '))>1: 
+                        List+= [str(y.Name)]
+                    else: 
+                        List+= [str(y.Name)]
+        """print('\n')
+        print(name)
+        print(NumberIngredients)
+        print(calories)
+        print(nutritional_values)
+        print(Dictionary)
+        print('\n')"""
+        Recipe_o = Recipe(name, NumberIngredients, calories, nutritional_values, List)
+        Recipes += [Recipe_o]
     return Recipes
-    
+
 def optimisation_lineaire(recipes, calories_per_day, basal_metabolism):
     """
         Input : recipes, a list-typed object containing all the recipes known by the program
@@ -80,12 +117,12 @@ def optimisation_lineaire(recipes, calories_per_day, basal_metabolism):
     """
     sum_calories = 0
     Calories_for_day = []
-    calories_per_recipe = 800
     i = 0
+    
     while sum_calories < calories_per_day:
-        for i in  range(len(recipes)):
-            if sum_calories + calories_per_recipe < calories_per_day:
-                sum_calories += calories_per_recipe
+        for i in range(len(recipes)):
+            if sum_calories < calories_per_day:
+                sum_calories += recipes[i].calories
                 Calories_for_day = Calories_for_day + [recipes[i]]
     List = [Calories_for_day,
             Calories_for_day,
@@ -94,8 +131,6 @@ def optimisation_lineaire(recipes, calories_per_day, basal_metabolism):
             Calories_for_day,
             Calories_for_day,
             Calories_for_day]
-    return List
+    return np.array(List)
     
-    
-    [["a","aa","ab","ac"],["b","ba","bb"],["c","ca","cb","cc","cd"],["d","da","db"],["e","ea"],["f","fa"],["g","ga","gb"]]
-    
+        
