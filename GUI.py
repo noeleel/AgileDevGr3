@@ -90,17 +90,20 @@ class main_window(Tk):
     def show_list(self):
         self.button_export = Button(self.Frame_4, text = "Export", command = self.export)
         self.button_export.grid()
-        max_len = max_lenght(self.list)+1
+        max_len = max_lenght(self.list)+2
+        print(max_len)
         for i in range(len(self.list)):
             Label(self.Frame_3,text = List_days[i],width = 10).grid(row = 2,column = 4*i+1)
             for j in range (len(self.list[i])):
-                Label(self.Frame_3,text = List_meals[j],width = 10).grid(row = 3+j*max_len+1,column = 4*i+1)
+                Label(self.Frame_3,text = List_meals[j] + ":",width = 10).grid(row = 3+j*max_len+1,column = 4*i+1)
                 
                 Recipe = self.list[i,j]
                 Label(self.Frame_3,text = Recipe.Name,width = 10).grid(row = 3+j*max_len+1,column = 4*i+2)
+                Label(self.Frame_3,text = " ",width = 3).grid(row = 3+j*max_len+1,column = 4*i+3)
                 for k in range(Recipe.NumberIngredients):
-                    Label(self.Frame_3,text = " - ",width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+2)
-                    Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+3)
+                    Label(self.Frame_3,text = " - ",width = 1).grid(row = 3+j*max_len+k+2,column = 4*i+1)
+                    Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 3+j*max_len+k+2,column = 4*i+2)
+                Label(self.Frame_3,text = " ",width = 3).grid(row = 3+j*max_len+Recipe.NumberIngredients+2,column = 4*i+3)
 
     def export(self):
         f = open(self.document,"w")

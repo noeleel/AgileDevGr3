@@ -25,7 +25,7 @@ class add_recipe_windows(Toplevel):
         self.Frame_2.pack(side=TOP)
 
 
-        self.entry_l = Label(self.Frame_2,text = "Recipe_name")
+        self.entry_l = Label(self.Frame_2,text = "Recipe_name(WIP)")
         self.entry_e = Entry(self.Frame_2)
         
 

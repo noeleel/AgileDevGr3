@@ -15,7 +15,7 @@ class missing_ingredients(Toplevel):
         self.cancel  = Button(self, text='Cancel'  , command=lambda: PopUpConfirmQuit(self))
         self.confirm = Button(self, text ='Confirm', command = self.get_values) 
 
-        self.wm_title("Missing Ingredients")
+        self.wm_title("Missing Ingredients(WIP)")
 
         self.Label = Label(self,text = "Nutritionnal Values for 100g of " + str(ingredients))
 
