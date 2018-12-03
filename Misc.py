@@ -107,8 +107,9 @@ def read_recipes():
         Recipe_o = Recipe(name, NumberIngredients, calories, nutritional_values, List)
         Recipes += [Recipe_o]
     return Recipes
+    
 
-def optimisation_lineaire(recipes, calories_per_day, basal_metabolism):
+def optimisation_lineaire(recipes, kg_per_day, basal_metabolism = 1500):
     """
         Input : recipes, a list-typed object containing all the recipes known by the program
         Principle : Compute the number of calories per recipes until this number gets
@@ -118,7 +119,7 @@ def optimisation_lineaire(recipes, calories_per_day, basal_metabolism):
     sum_calories = 0
     Calories_for_day = []
     counter = 0
-    
+    calories_per_day = ((13.7516 + 9.5634)/2) * kg_per_day + basal_metabolism + 300
     while sum_calories < calories_per_day and counter < 3:
         for i in range(len(recipes)):
             if sum_calories < calories_per_day \
