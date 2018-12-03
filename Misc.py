@@ -121,7 +121,9 @@ def optimisation_lineaire(recipes, calories_per_day, basal_metabolism):
     
     while sum_calories < calories_per_day and counter < 3:
         for i in range(len(recipes)):
-            if sum_calories < calories_per_day and counter < 3:
+            if sum_calories < calories_per_day \
+            and counter < 3 and len(recipes[i].Ingredients) == recipes[i].NumberIngredients \
+            and recipes[i].NumberIngredients > 0:
                 sum_calories += recipes[i].calories
                 Calories_for_day = Calories_for_day + [recipes[i]]
                 counter+=1

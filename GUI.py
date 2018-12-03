@@ -105,6 +105,7 @@ class main_window(Tk):
                 Recipe = self.list[i,j]
                 Label(self.Frame_3,text = Recipe.Name,width = 10).grid(row = 3+j*max_len+1,column = 4*i+2)
                 for k in range(Recipe.NumberIngredients):
+                    print(Recipe.NumberIngredients)
                     Label(self.Frame_3,text = " - ",width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+2)
                     Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+3)
 
