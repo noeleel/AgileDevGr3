@@ -86,6 +86,7 @@ def read_recipes():
                               'Carbohydrate' : 0.0,
                                 'Fat' : 0.0}
         List = []
+        QTT = []
         for i in range(1,Len_recipe):
             for y in Ingredients:
                 if x[i].split(' ')[1].strip().lower() == y.Name.strip().lower():
@@ -95,8 +96,10 @@ def read_recipes():
                     nutritional_values['Fat'] +=  float(y.nutritional_values['Fat'])
                     if len(x[i].split(' '))>1: 
                         List+= [y]
+                        QTT += [str(x[i].split(' ')[0].strip().lower())]
                     else: 
                         List+= [y]
+                        QTT += ['1u']
         """print('\n')
         print(name)
         print(NumberIngredients)
@@ -104,7 +107,7 @@ def read_recipes():
         print(nutritional_values)
         print(Dictionary)
         print('\n')"""
-        Recipe_o = Recipe(name, NumberIngredients, calories, nutritional_values, List)
+        Recipe_o = Recipe(name, NumberIngredients, calories, nutritional_values, List, QTT)
         Recipes += [Recipe_o]
     return Recipes
     
