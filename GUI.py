@@ -89,7 +89,7 @@ class main_window(Tk):
 
     def show_list(self):
         self.button_export = Button(self.Frame_4, text = "Export", command = self.export)
-        self.button_export.grid()
+        self.button_export.grid(row = 1,column = 1)
         max_len = max_lenght(self.list)+2
         print(max_len)
         for i in range(len(self.list)):
