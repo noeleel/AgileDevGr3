@@ -118,6 +118,3 @@ class main_window(Tk):
             f.write("\n")
         f.close()
 
-if __name__ == "__main__":
-    test = main_window()
-    test.mainloop()

@@ -16,30 +16,34 @@ class add_recipe_windows(Toplevel):
         self.name_given = 0
         self.number_ingredients = 0
         self.recipe_list = []
-        self.wm_title("Add Recipe")
+        self.wm_title("Add Recipe(WIP)")
 
         self.Frame_1 = Frame(self, borderwidth=2, relief=GROOVE)
         self.Frame_2 = Frame(self, borderwidth=2, relief=GROOVE)
+        self.Frame_3 = Frame(self, borderwidth=2, relief=GROOVE)
 
         self.Frame_1.pack(side=TOP)
         self.Frame_2.pack(side=TOP)
+        self.Frame_3.pack(side=TOP)
 
 
-        self.entry_l = Label(self.Frame_2,text = "Recipe_name(WIP)")
-        self.entry_e = Entry(self.Frame_2)
+        self.entry_l  = Label(self.Frame_2,text = "Recipe_name")
+        self.entry_e  = Entry(self.Frame_2)
+        self.entry_lq = Label(self.Frame_2,text = "Quantity")
+        self.entry_eq = Entry(self.Frame_2)
         
 
-        self.send   = Button(self.Frame_2,text = "add",   command = self.add)
-        self.cancel = Button(self.Frame_2, text='Cancel', command = lambda: PopUpConfirmQuit(self))
-        self.done   = Button(self.Frame_2,text = "export",command = self.export)
+        self.send   = Button(self.Frame_3,text = "add",   command = self.add)
+        self.cancel = Button(self.Frame_3, text='Cancel', command = lambda: PopUpConfirmQuit(self))
+        self.done   = Button(self.Frame_3,text = "export",command = self.export)
 
 
         self.entry_l.grid(row = 1,column = 1)
         self.entry_e.grid(row = 1,column = 2)
 
-        self.send.grid(row = 2,column = 1)
-        self.cancel.grid(row = 2,column = 2)
-        self.done.grid(row = 2,column = 3)
+        self.send.grid(row = 3,column = 1)
+        self.cancel.grid(row = 3,column = 2)
+        self.done.grid(row = 3,column = 3)
 
 
     def add(self):
@@ -51,12 +55,19 @@ class add_recipe_windows(Toplevel):
             self.entry_l['text'] = "Ingredients"
             print(self.name_given,self.recipe_name)
             self.number_ingredients+=1
+            self.entry_lq.grid(row = 2,column = 1)
+            self.entry_eq.grid(row = 2,column = 2)
         
         else:
             ingredients = self.entry_e.get()
+            Quantity = self.entry_eq.get()
             self.recipe_list.append(ingredients)
-            Label(self.Frame_1,text = " - "+ingredients).grid(row = self.number_ingredients,column = 1)
+            Label(self.Frame_1,text = " - "+Quantity+" "+ingredients).grid(row = self.number_ingredients,column = 1)
             self.number_ingredients+=1
+            
+        
+        self.entry_e.delete(0, 'end')
+        self.entry_eq.delete(0, 'end')
     
     def export(self):
         print(self.recipe_list)
