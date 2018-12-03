@@ -19,11 +19,13 @@ class main_window(Tk):
         self.Frame_1 = Frame(self, borderwidth=2, relief=GROOVE)
         self.Frame_2 = Frame(self, borderwidth=2, relief=GROOVE)
         self.Frame_3 = Frame(self, borderwidth=2, relief=GROOVE)
+        self.Frame_4 = Frame(self, borderwidth=2, relief=GROOVE)
         
         
-        self.Frame_1.pack(side=TOP)
-        self.Frame_2.pack(side=TOP)
+        self.Frame_1.pack(side = TOP)
+        self.Frame_2.pack(side = TOP)
         self.Frame_3.pack(side = TOP)
+        self.Frame_4.pack(side = TOP)
 
         self.label_weight = Label(self.Frame_1,text = "Weight(kg): ")
         self.input_weight = Entry(self.Frame_1)
@@ -32,11 +34,6 @@ class main_window(Tk):
         self.input_fat = Entry(self.Frame_1)
 
 
-        vals = ['1.25', '1.5', '1.75','2.1']
-        etiqs = ['daily activities and 30 min walk / day ', 
-                 '~60 min of small activities',
-                 '>60 min of small activities, or 30-60 min intensive activities',
-                 '>60min of intensive activities']
         self.varGr = StringVar()
         self.varGr.set(vals[1])
         for i in range(len(etiqs)):
@@ -97,19 +94,19 @@ class main_window(Tk):
     """
 
     def show_list(self):
-        self.button_export = Button(self.Frame_3, text = "Export", command = self.export)
+        self.button_export = Button(self.Frame_4, text = "Export", command = self.export)
         self.button_export.grid()
         max_len = max_lenght(self.list)+1
         for i in range(len(self.list)):
-            Label(self.Frame_2,text = List_days[i],width = 10).grid(row = 2,column = 4*i+1)
+            Label(self.Frame_3,text = List_days[i],width = 10).grid(row = 2,column = 4*i+1)
             for j in range (len(self.list[i])):
-                Label(self.Frame_2,text = List_meals[j],width = 10).grid(row = 3+j*max_len+1,column = 4*i+1)
+                Label(self.Frame_3,text = List_meals[j],width = 10).grid(row = 3+j*max_len+1,column = 4*i+1)
                 
                 Recipe = self.list[i,j]
-                Label(self.Frame_2,text = Recipe.Name,width = 10).grid(row = 3+j*max_len+1,column = 4*i+2)
+                Label(self.Frame_3,text = Recipe.Name,width = 10).grid(row = 3+j*max_len+1,column = 4*i+2)
                 for k in range(Recipe.NumberIngredients):
-                    Label(self.Frame_2,text = " - ",width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+2)
-                    Label(self.Frame_2,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+3)
+                    Label(self.Frame_3,text = " - ",width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+2)
+                    Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+3)
 
 
 
