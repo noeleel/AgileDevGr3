@@ -4,6 +4,8 @@ from tkinter.messagebox import *
 
 
 from Misc import *
+from GUI_exit_windows import *
+from GUI_add_recipe import * 
 
 
 class main_window(Tk):
@@ -44,8 +46,9 @@ class main_window(Tk):
         self.label_objectif = Label(self.Frame_1,text = "Objectif(kg): ")
         self.input_objectif = Entry(self.Frame_1)
 
-        self.send_button = Button(self.Frame_1, text = "Send value",command = self.send)
-        self.exit = Button(self.Frame_1, text="Quit", command=self.quit)
+        self.send_button = Button(self.Frame_1, text = "Send value" , command = self.send)
+        self.add_recipe  = Button(self.Frame_1, text = "Add recipes", command = self.add)  
+        self.exit = Button(self.Frame_1       , text="Quit"         , command=lambda: PopUpConfirmQuit(self))
 
         self.bind('<Return>',self.return_key)
 
@@ -58,8 +61,9 @@ class main_window(Tk):
         self.label_objectif.grid(row = 3,column=3)
         self.input_objectif.grid(row = 3,column = 5)
 
-        self.send_button.grid(row = 2,column = 7)
-        self.exit.grid(row = 1,column = 7)
+        self.send_button.grid(row = 1,column = 7)
+        self.add_recipe.grid(row = 2, column = 7)
+        self.exit.grid(row = 3,column = 7)
 
     def return_key(self,Event):
         self.get_objectif()
@@ -80,18 +84,8 @@ class main_window(Tk):
             self.list = optimisation_lineaire(read_recipes(),self.objectif,1500)
             self.show_list()
 
-    
-    """def show_list(self):
-        self.button_export = Button(self.Frame_3, text = "Export", command = self.export)
-        self.button_export.grid()
-        for i in range(len(self.list)):
-            Label(self.Frame_2,text = List_days[i],width = 10).grid(row = 2,column = 3*i+1)
-
-            Label(self.Frame_2,text = self.list[i][0],width = 10).grid(row = 3,column = 3*i+1)
-            for j in range(len(self.list[i])-1):
-                Label(self.Frame_2,text = "-",width = 10).grid(row = j+4,column = 3*i+1)
-                Label(self.Frame_2,text = self.list[i][j+1],width = 10).grid(row = j+4,column = 3*i+2)
-    """
+    def add(self):
+        add_recipe_windows(self)
 
     def show_list(self):
         self.button_export = Button(self.Frame_4, text = "Export", command = self.export)
@@ -105,26 +99,8 @@ class main_window(Tk):
                 Recipe = self.list[i,j]
                 Label(self.Frame_3,text = Recipe.Name,width = 10).grid(row = 3+j*max_len+1,column = 4*i+2)
                 for k in range(Recipe.NumberIngredients):
-                    print(Recipe.NumberIngredients)
                     Label(self.Frame_3,text = " - ",width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+2)
                     Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 3+j*max_len+k+1,column = 4*i+3)
-
-
-
-    def clear(self):
-        pass
-
-    """
-    def export(self):
-        f = open(self.document,"w")
-        for i in range(len(self.list)):
-            f.write(List_days[i]+"\n")
-            f.write("  "+self.list[i][0]+":\n")
-            for j in range(len(self.list[i])-1):
-                f.write("  ->"+self.list[i][j+1]+"\n")
-            f.write("\n")
-        f.close()
-    """
 
     def export(self):
         f = open(self.document,"w")
@@ -138,3 +114,7 @@ class main_window(Tk):
                     f.write(" ->" + Recipe.Ingredients[k].Name + "\n")
             f.write("\n")
         f.close()
+
+if __name__ == "__main__":
+    test = main_window()
+    test.mainloop()
