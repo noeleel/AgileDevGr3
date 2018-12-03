@@ -117,13 +117,14 @@ def optimisation_lineaire(recipes, calories_per_day, basal_metabolism):
     """
     sum_calories = 0
     Calories_for_day = []
-    i = 0
+    counter = 0
     
-    while sum_calories < calories_per_day:
+    while sum_calories < calories_per_day and counter < 3:
         for i in range(len(recipes)):
-            if sum_calories < calories_per_day:
+            if sum_calories < calories_per_day and counter < 3:
                 sum_calories += recipes[i].calories
                 Calories_for_day = Calories_for_day + [recipes[i]]
+                counter+=1
     List = [Calories_for_day,
             Calories_for_day,
             Calories_for_day,
