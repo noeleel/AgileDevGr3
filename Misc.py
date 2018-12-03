@@ -94,9 +94,9 @@ def read_recipes():
                     nutritional_values['Carbohydrate'] +=  float(y.nutritional_values['Carbohydrate'])
                     nutritional_values['Fat'] +=  float(y.nutritional_values['Fat'])
                     if len(x[i].split(' '))>1: 
-                        List+= [str(y.Name)]
+                        List+= [y]
                     else: 
-                        List+= [str(y.Name)]
+                        List+= [y]
         """print('\n')
         print(name)
         print(NumberIngredients)
