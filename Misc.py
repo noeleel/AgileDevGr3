@@ -140,4 +140,11 @@ def optimisation_lineaire(recipes, kg_per_day, basal_metabolism = 1500):
             Calories_for_day]
     return np.array(List)
     
-        
+def optimisation_lineaire_v2(recipes, kg_per_day, basal_metabolism):
+    # Creation of the couple of recipes
+    Couples = []
+    for i in range(len(recipes)):
+        for j in range(len(recipes)):
+            if i!=j:
+                Couples += [recipes[i], recipes[j]]
+    
