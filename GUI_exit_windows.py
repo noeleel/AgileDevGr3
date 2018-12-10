@@ -14,6 +14,6 @@ class PopUpConfirmQuit(Toplevel):
     """
     def __init__(self, master=None):
         super().__init__(master)
-        Label(self, text="Are you sure you want to quit").pack()
-        Button(self, text='Yes', command=master.destroy).pack(side=RIGHT, fill=BOTH, padx=5, pady=5)
-        Button(self, text='No', command=self.destroy).pack(side=RIGHT, fill=BOTH, padx=5, pady=5)
+        Label(self , text = "Are you sure you want to quit").pack()
+        Button(self, text = 'Yes', command=master.destroy).pack(side=RIGHT, fill=BOTH, padx=5, pady=5)
+        Button(self, text = 'No', command=self.destroy).pack(side=RIGHT, fill=BOTH, padx=5, pady=5)

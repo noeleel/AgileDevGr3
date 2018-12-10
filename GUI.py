@@ -32,7 +32,7 @@ class main_window(Tk):
         self.label_weight = Label(self.Frame_1,text = "Weight(kg): ")
         self.input_weight = Entry(self.Frame_1)
 
-        self.label_fat = Label(self.Frame_1,text = "Fat percent: ")
+        self.label_fat = Label(self.Frame_1,text = "Body Fat percent: ")
         self.input_fat = Entry(self.Frame_1)
 
 
@@ -48,7 +48,7 @@ class main_window(Tk):
 
         self.send_button = Button(self.Frame_1, text = "Send value" , command = self.send)
         self.add_recipe  = Button(self.Frame_1, text = "Add recipes", command = self.add)  
-        self.exit = Button(self.Frame_1       , text="Quit"         , command=lambda: PopUpConfirmQuit(self))
+        self.exit = Button(self.Frame_1       , text = "Quit"       , command=lambda: PopUpConfirmQuit(self))
 
         self.bind('<Return>',self.return_key)
 
@@ -78,9 +78,8 @@ class main_window(Tk):
         self.objectif = str_to_float(self.input_objectif.get())
 
         if (self.activity_factor * self.current_weight * self.objectif * self.fat_percent == 0):
-            showwarning("Error","Please fill all boxes with number")
+            showwarning("Error","Please fill all boxes with non-zero number")
         else:
-            print(self.activity_factor,self.current_weight,self.objectif,self.fat_percent)
             self.list = optimisation_lineaire(read_recipes(),self.objectif,1500)
             self.show_list()
 
@@ -91,7 +90,8 @@ class main_window(Tk):
         self.button_export = Button(self.Frame_4, text = "Export", command = self.export)
         self.button_export.grid(row = 1,column = 1)
         max_len = max_lenght(self.list)+2
-        print(max_len)
+        for widget in self.Frame_3.winfo_children():
+            widget.destroy()
         for i in range(len(self.list)):
             Label(self.Frame_3,text = List_days[i],width = 10).grid(row = 2,column = 4*i+1)
             for j in range (len(self.list[i])):
