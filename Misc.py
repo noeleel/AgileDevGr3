@@ -2,7 +2,7 @@ from Groceries import *
 from Recipes import *
 import numpy as np
 import pandas as pd
-
+from scipy.optimize import minimize
 
 List_days      =  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 List_meals     =  ["Breakfast","Lunch","Dinner"]
@@ -108,11 +108,12 @@ def read_recipes():
         print(Dictionary)
         print('\n')"""
         Recipe_o = Recipe(name, NumberIngredients, calories, nutritional_values, List, QTT)
-        Recipes += [Recipe_o]
+        if Recipe_o.NumberIngredients == len(Recipe_o.Ingredients):
+            Recipes += [Recipe_o]
     return Recipes
     
 
-def optimisation_lineaire(recipes, kg_per_day, basal_metabolism = 1500):
+def optimisation_lineaire_past(recipes, kg_per_day, basal_metabolism = 1500):
     """
         Input : recipes, a list-typed object containing all the recipes known by the program
         Principle : Compute the number of calories per recipes until this number gets
@@ -139,12 +140,81 @@ def optimisation_lineaire(recipes, kg_per_day, basal_metabolism = 1500):
             Calories_for_day,
             Calories_for_day]
     return np.array(List)
+
+def function_to_minimize(X, P,L, C, G):
+    f = (X[0] + X[4] - P)**2 + (X[1] + X[5] - G)**2 + (X[2] + X[6] - L)**2 + (X[3] + X[7] - P)**2
+    return f
+
+def Array_to_list(Array):
+    List = []
+    Array = Array.flatten()
+    for x in Array:
+        List +=[x]
+    return List
     
-def optimisation_lineaire_v2(recipes, kg_per_day, basal_metabolism):
-    # Creation of the couple of recipes
-    Couples = []
+def minimizing(X, P,L, C, G):
+    X = np.array(X)
+    res = minimize(function_to_minimize, X, (P, L, C, G))
+    minimum = res.x
+    L_minimum = Array_to_list(minimum)
+    return L_minimum
+
+def check_is_not_in_list(List, obj):
+    if len(List) < 1:
+        return -1
+    else:
+        for x in List:
+            if x==obj:
+                return 0
+            else:
+                return -1
+    return -1
+
+def optimisation_lineaire(recipes, kg_per_day, basal_metabolism = 1500):
+    List = []
+    calories_per_day = ((13.7516 + 9.5634)/2) * kg_per_day + basal_metabolism + 300
+    carbohydrates = (50/100) * calories_per_day
+    fat = (35/100) * calories_per_day
+    proteins = (15/100) * calories_per_day
+    X = []
+    # Creation of the pairs of recipes
     for i in range(len(recipes)):
         for j in range(len(recipes)):
             if i!=j:
-                Couples += [recipes[i], recipes[j]]
+                X += [[recipes[i].nutritional_values['Protein'], recipes[i].nutritional_values['Carbohydrate'],recipes[i].nutritional_values['Fat'], recipes[i].calories,recipes[j].nutritional_values['Protein'], recipes[j].nutritional_values['Carbohydrate'],recipes[j].nutritional_values['Fat'], recipes[j].calories, (i,j)]]
+    # Running the minization function on the pairs
+    Minimized = []
+    for i in range(len(X)):
+        Val = X[i][0:8]
+        Minimized +=[minimizing(Val, proteins, fat, calories_per_day, carbohydrates)]
+    # Making the recipes for each day
+    while len(List) < 7:
+        Recipes_for_day = []
+        while len(Recipes_for_day)<3:
+            mini = min(Minimized)
+            idx = Minimized.index(mini)
+            #Minimized.pop(idx)
+            idx_recipe1 = X[idx][8][0]
+            idx_recipe2 = X[idx][8][1]
+            recipe1 = recipes[idx_recipe1]
+            recipe2 = recipes[idx_recipe2]
+            # Check any if the recipes is not redundant
+            flag1 = check_is_not_in_list(Recipes_for_day,recipe1)
+            if flag1 == -1 and len(Recipes_for_day) < 3:
+                Recipes_for_day +=[recipe1]
+            else:
+                flag2 = check_is_not_in_list(Recipes_for_day,recipe2)
+                if flag2 == -1 and len(Recipes_for_day) < 3:
+                    Recipes_for_day +=[recipe2]
+                elif flag1 == 0 and flag2 == 0:
+                    Recipes_for_day+=[recipe1]
+        List +=[Recipes_for_day]
+    return np.array(List)
     
+def print_List(Array):
+    Array = Array.flatten()
+    Array = Array[0:3]
+    for x in Array:
+        print('\n')
+        print(x.show())
+        print('\n')
