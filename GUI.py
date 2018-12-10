@@ -7,6 +7,7 @@ from Misc import *
 from GUI_exit_windows import *
 from GUI_add_recipe import * 
 
+from subprocess import call
 
 class main_window(Tk):
     def __init__(self):
@@ -17,7 +18,7 @@ class main_window(Tk):
         self.activity_factor = 0
         
         self.list = []
-        self.document = "Groceries List.doc"
+        self.document = "List.md"
         self.Frame_1 = Frame(self, borderwidth=2, relief=GROOVE)
         self.Frame_2 = Frame(self, borderwidth=2, relief=GROOVE)
         self.Frame_3 = Frame(self, borderwidth=2, relief=GROOVE)
@@ -94,9 +95,10 @@ class main_window(Tk):
             widget.destroy()
         for i in range(len(self.list)):
             Label(self.Frame_3,text = List_days[i],width = 10).grid(row = 2,column = 4*i+1)
+            cal_days = 0
             for j in range (len(self.list[i])):
                 Label(self.Frame_3,text = List_meals[j] + ":",width = 10).grid(row = 3+j*max_len+1,column = 4*i+1)
-                
+                cal_days += self.list[i,j].calories
                 Recipe = self.list[i,j]
                 Label(self.Frame_3,text = Recipe.Name,width = 10).grid(row = 3+j*max_len+1,column = 4*i+2)
                 Label(self.Frame_3,text = " ",width = 3).grid(row = 3+j*max_len+1,column = 4*i+3)
@@ -104,17 +106,24 @@ class main_window(Tk):
                     Label(self.Frame_3,text = " - ",width = 1).grid(row = 3+j*max_len+k+2,column = 4*i+1)
                     Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 3+j*max_len+k+2,column = 4*i+2)
                 Label(self.Frame_3,text = " ",width = 3).grid(row = 3+j*max_len+Recipe.NumberIngredients+2,column = 4*i+3)
+            
+            Label(self.Frame_3,text = "Calories : "+str(cal_days),width = 12).grid(row = 2,column = 4*i+2)
 
     def export(self):
         f = open(self.document,"w")
+        f.write("# Groceries List for the week\n")
         for i in range(len(self.list)):
-            f.write(List_days[i]+"\n")
+            f.write("## "+List_days[i]+"\n")
             for j in range (len(self.list[i])):
-                f.write(List_meals[j])
+                f.write("### "+List_meals[j])
                 Recipe = self.list[i,j]
                 f.write(" : " + Recipe.Name + "\n")
                 for k in range(Recipe.NumberIngredients):
-                    f.write(" ->" + Recipe.Ingredients[k].Name + "\n")
-            f.write("\n")
+                    f.write(" \n->" + str(Recipe.QTT[k])+" "+Recipe.Ingredients[k].Name + "\n")
+                f.write("\n")
         f.close()
+        print("export Done")
+        call(["pandoc","-s","-o","Groceries_List.pdf","List.md"])
+        print("Conversion Done")
+        call(["rm","-f","List.md"])
 
