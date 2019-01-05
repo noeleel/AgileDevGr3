@@ -2,4 +2,4 @@
 # AgileDevGr3
 
 A installer pandoc pour l'interface
-1. - sous linux **sudo apt install pandoc** 
+1. - sous linux **sudo apt install pandoc** (fonction desactivé pour passage sur windows)
