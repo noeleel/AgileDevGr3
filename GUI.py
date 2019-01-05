@@ -16,6 +16,8 @@ class main_window(Tk):
         self.fat_percent = 0
         self.objectif = 0
         self.activity_factor = 0
+
+        self.pos_days = 0
         
         self.list = []
         self.document = "List.md"
@@ -24,6 +26,7 @@ class main_window(Tk):
         self.Frame_3 = Frame(self, borderwidth=2, relief=GROOVE)
         self.Frame_4 = Frame(self, borderwidth=2, relief=GROOVE)
         
+
         
         self.Frame_1.pack(side = TOP)
         self.Frame_2.pack(side = TOP)
@@ -33,7 +36,7 @@ class main_window(Tk):
         self.label_weight = Label(self.Frame_1,text = "Weight(kg): ")
         self.input_weight = Entry(self.Frame_1)
 
-        self.label_fat = Label(self.Frame_1,text = "Body Fat percent: ")
+        self.label_fat = Label(self.Frame_1,text = "Body Fat percent:")
         self.input_fat = Entry(self.Frame_1)
 
 
@@ -86,28 +89,53 @@ class main_window(Tk):
 
     def add(self):
         add_recipe_windows(self)
+    
+    def next(self):
+        self.update_pos(1)
+    
+    def prev(self):
+        self.update_pos(-1)
+
+    def update_pos(self,n):
+        self.pos_days+=n
+        if self.pos_days<0:
+            self.pos_days = 0
+        if self.pos_days>5:
+            self.pos_days=5
+        self.show_list()
 
     def show_list(self):
         self.button_export = Button(self.Frame_4, text = "Export", command = self.export)
-        self.button_export.grid(row = 1,column = 1)
+        self.button_export.grid(row = 1,column = 2)
         max_len = max_lenght(self.list)+2
+
+        self.button_prev = Button(self.Frame_4, text = "Previous", command = self.prev)
+        self.button_prev.grid(row = 1,column = 1)
+
+        self.button_next = Button(self.Frame_4, text = "Next", command = self.next)
+        self.button_next.grid(row = 1,column = 3)
+
         for widget in self.Frame_3.winfo_children():
             widget.destroy()
-        for i in range(len(self.list)):
-            Label(self.Frame_3,text = List_days[i],width = 10).grid(row = 2,column = 4*i+1)
+        for i in range(self.pos_days,self.pos_days+2):
+            i_pos = (i-self.pos_days)
+            Label(self.Frame_3,text = List_days[i],width = 10).grid(row = 2,column = 4*i_pos+1)
             cal_days = 0
+            Label(self.Frame_3,text = " ",width = 10).grid(row = 3,column = 4*i_pos+1)
             for j in range (len(self.list[i])):
-                Label(self.Frame_3,text = List_meals[j] + ":",width = 10).grid(row = 3+j*max_len+1,column = 4*i+1)
+                Label(self.Frame_3,text = List_meals[j] + ":",width = 10).grid(row = 4+j*max_len+1,column = 4*i_pos+1)
                 cal_days += self.list[i,j].calories
                 Recipe = self.list[i,j]
-                Label(self.Frame_3,text = Recipe.Name,width = 10).grid(row = 3+j*max_len+1,column = 4*i+2)
-                Label(self.Frame_3,text = " ",width = 3).grid(row = 3+j*max_len+1,column = 4*i+3)
+                Label(self.Frame_3,text = Recipe.Name,width = 10).grid(row = 4+j*max_len+1,column = 4*i_pos+2)
+                Label(self.Frame_3,text = " ",width = 3).grid(row = 4+j*max_len+1,column = 4*i_pos+3)
                 for k in range(Recipe.NumberIngredients):
-                    Label(self.Frame_3,text = " - ",width = 1).grid(row = 3+j*max_len+k+2,column = 4*i+1)
-                    Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 3+j*max_len+k+2,column = 4*i+2)
-                Label(self.Frame_3,text = " ",width = 3).grid(row = 3+j*max_len+Recipe.NumberIngredients+2,column = 4*i+3)
+                    Label(self.Frame_3,text = " - ",width = 1).grid(row = 4+j*max_len+k+2,column = 4*i_pos+1)
+                    Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 4+j*max_len+k+2,column = 4*i_pos+2)
+                Label(self.Frame_3,text = " ",width = 3).grid(row = 4+j*max_len+Recipe.NumberIngredients+2,column = 4*i_pos+3)
             
-            Label(self.Frame_3,text = "Calories : "+str(cal_days),width = 12).grid(row = 2,column = 4*i+2)
+            Label(self.Frame_3,text = "Calories : "+str(cal_days),width = 12).grid(row = 2,column = 4*i_pos+2)
+        
+
 
     def export(self):
         f = open(self.document,"w")
@@ -122,8 +150,8 @@ class main_window(Tk):
                     f.write(" \n->" + str(Recipe.QTT[k])+" "+Recipe.Ingredients[k].Name + "\n")
                 f.write("\n")
         f.close()
-        print("export Done")
+        """print("export Done")
         call(["pandoc","-s","-o","Groceries_List.pdf","List.md"])
         print("Conversion Done")
-        call(["rm","-f","List.md"])
+        call(["rm","-f","List.md"])"""
 
