@@ -119,21 +119,21 @@ class main_window(Tk):
             widget.destroy()
         for i in range(self.pos_days,self.pos_days+2):
             i_pos = (i-self.pos_days)
-            Label(self.Frame_3,text = List_days[i],width = 10).grid(row = 2,column = 4*i_pos+1)
+            Label(self.Frame_3,text = List_days[i],width = 13).grid(row = 2,column = 4*i_pos+1)
             cal_days = 0
-            Label(self.Frame_3,text = " ",width = 10).grid(row = 3,column = 4*i_pos+1)
+            Label(self.Frame_3,text = " ",width = 13).grid(row = 3,column = 4*i_pos+1)
             for j in range (len(self.list[i])):
-                Label(self.Frame_3,text = List_meals[j] + ":",width = 10).grid(row = 4+j*max_len+1,column = 4*i_pos+1)
+                Label(self.Frame_3,text = List_meals[j] + ":",width = 13).grid(row = 4+j*max_len+1,column = 4*i_pos+1)
                 cal_days += self.list[i,j].calories
                 Recipe = self.list[i,j]
-                Label(self.Frame_3,text = Recipe.Name,width = 10).grid(row = 4+j*max_len+1,column = 4*i_pos+2)
+                Label(self.Frame_3,text = Recipe.Name,width = 13).grid(row = 4+j*max_len+1,column = 4*i_pos+2)
                 Label(self.Frame_3,text = " ",width = 3).grid(row = 4+j*max_len+1,column = 4*i_pos+3)
                 for k in range(Recipe.NumberIngredients):
                     Label(self.Frame_3,text = " - ",width = 1).grid(row = 4+j*max_len+k+2,column = 4*i_pos+1)
-                    Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 10).grid(row = 4+j*max_len+k+2,column = 4*i_pos+2)
+                    Label(self.Frame_3,text = Recipe.Ingredients[k].Name,width = 13).grid(row = 4+j*max_len+k+2,column = 4*i_pos+2)
                 Label(self.Frame_3,text = " ",width = 3).grid(row = 4+j*max_len+Recipe.NumberIngredients+2,column = 4*i_pos+3)
             
-            Label(self.Frame_3,text = "Calories : "+str(cal_days),width = 12).grid(row = 2,column = 4*i_pos+2)
+            Label(self.Frame_3,text = "Calories : "+str(cal_days),width = 13).grid(row = 2,column = 4*i_pos+2)
         
 
 
