@@ -120,12 +120,6 @@ Recepies for 3/4 people
 1cs olive_oil
 
 
-### chantilly cream ###
-
-25cl fresh_cream
-25g ice_sugar
-
-
 ### leek fondue ###
 
 600g leek
@@ -136,6 +130,7 @@ Recepies for 3/4 people
 
 
 ### healthy bolognese ###
+
 150g ground_beef
 1u Hot_sauce
 100g Salad
@@ -145,7 +140,9 @@ Recepies for 3/4 people
 1 avocado
 50g cherry_tomatoes
 
+
 ### healthy Omelet ###
+
 250g egg_white
 200g chicken
 20g pesto
@@ -153,7 +150,9 @@ Recepies for 3/4 people
 50g cherry_tomatoes
 20g olive_oil
 
+
 ### curry beef ###
+
 300g beef_cheek
 50g onion
 2 carrot
@@ -164,6 +163,7 @@ Recepies for 3/4 people
 1u pepper
 100ml coconut_milk
 
+
 ### Duck paste ###
 1.9kg duck_leg
 400g duck_aiguillette
@@ -172,7 +172,9 @@ Recepies for 3/4 people
 1u provence_grass
 1u cognac
 
+
 ### roasted lamb ###
+
 1.5kg Lamb_shoulder
 400g onion
 100g yellow_pepper
@@ -180,16 +182,20 @@ Recepies for 3/4 people
 100g orange_pepper
 6 carrot
 30g garlic
-1u .pepper
+1u pepper
+
 
 ### cod brandade ###
+
 700g bream
 700g potatoes
 50g salt
 50g garlic
 125mL olive_oil
 
+
 ### moussaka ###
+
 800g crushed_beef
 800g crushed_lamb
 800g potatoes
@@ -200,7 +206,9 @@ Recepies for 3/4 people
 200g cheese
 800g eggplant
 
+
 ### lamb couscous ###
+
 600g lamb
 300g onion
 50g garlic
@@ -213,13 +221,15 @@ Recepies for 3/4 people
 600g semolina
 30g turmeric
 30g cumin
-30g ras el-hanout
+30g ras_el_hanout
 100ml olive_oil
 10g salt
 10g pepper
 500ml crushed_tomatoes
 
+
 ### bourguignon beef ###
+
 800g lamb
 400g onion
 50g garlic
@@ -231,7 +241,10 @@ Recepies for 3/4 people
 10g salt
 10g pepper
 
+
 ### gratin dauphinois ###
+
+
 2kg potatoes
 50g garlic
 350ml milk

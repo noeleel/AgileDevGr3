@@ -80,7 +80,6 @@ def read_recipes():
     for x in Recipes_parsed:
         Len_recipe = len(x)
         name = x[0].strip()
-        NumberIngredients = Len_recipe - 1
         calories = 0.0
         nutritional_values = {'Protein' : 0.0,
                               'Carbohydrate' : 0.0,
@@ -100,16 +99,8 @@ def read_recipes():
                     else: 
                         List+= [y]
                         QTT += ['1u']
-        """print('\n')
-        print(name)
-        print(NumberIngredients)
-        print(calories)
-        print(nutritional_values)
-        print(Dictionary)
-        print('\n')"""
-        Recipe_o = Recipe(name, NumberIngredients, calories, nutritional_values, List, QTT)
-        if Recipe_o.NumberIngredients == len(Recipe_o.Ingredients):
-            Recipes += [Recipe_o]
+        Recipe_o = Recipe(name, len(List), calories, nutritional_values, List, QTT)
+        Recipes += [Recipe_o]
     return Recipes
     
 
@@ -193,7 +184,7 @@ def optimisation_lineaire(recipes, kg_per_day, basal_metabolism = 1500):
         while len(Recipes_for_day)<3:
             mini = min(Minimized)
             idx = Minimized.index(mini)
-            #Minimized.pop(idx)
+            Minimized.pop(idx)
             idx_recipe1 = X[idx][8][0]
             idx_recipe2 = X[idx][8][1]
             recipe1 = recipes[idx_recipe1]
@@ -213,7 +204,7 @@ def optimisation_lineaire(recipes, kg_per_day, basal_metabolism = 1500):
     
 def print_List(Array):
     Array = Array.flatten()
-    Array = Array[0:3]
+    Array = Array[0:10]
     for x in Array:
         print('\n')
         print(x.show())
